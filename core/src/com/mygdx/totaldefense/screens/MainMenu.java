@@ -12,7 +12,7 @@ import com.mygdx.totaldefense.managers.Assets;
 /**
  * Created by dubforce on 9/28/15.
  */
-public class MainMenu extends ScreenAdapter implements GameState {
+public class MainMenu extends ScreenAdapter {
     // the global game instance, used to switch screens from this screen
     private TotalDefense game;
 
@@ -45,18 +45,16 @@ public class MainMenu extends ScreenAdapter implements GameState {
         super.pause();
     }
 
-    @Override
     public void update(float delta) {
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             guiCamera.unproject(mousePosition.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
             if(playBounds.contains(mousePosition.x, mousePosition.y)) {
-                game.setScreen(new PlayState(game));
+                game.setScreen(new PlayScreen(game));
             }
         }
     }
 
-    @Override
     public void draw() {
         guiCamera.update();
         game.batch.setProjectionMatrix(guiCamera.combined);
