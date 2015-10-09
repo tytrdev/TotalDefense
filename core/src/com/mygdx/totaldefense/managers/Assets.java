@@ -13,6 +13,7 @@ public class Assets {
 
     // player assets
     public static TextureRegion player;
+    public static TextureRegion enemy;
 
     // bullet assets
     public static TextureRegion bullet;
@@ -25,5 +26,6 @@ public class Assets {
         playButton = new Texture("UI/menus/play.png");
         player = new TextureRegion(new Texture("sprites/player-32.png"));
         bullet = new TextureRegion(new Texture("sprites/bullet.png"));
+        enemy = new TextureRegion(new Texture("sprites/enemy-32.png"));
     }
 }

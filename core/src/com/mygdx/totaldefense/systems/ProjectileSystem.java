@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.totaldefense.components.*;
 import com.mygdx.totaldefense.managers.Assets;
-import com.mygdx.totaldefense.util.ICollisionBits;
+import com.mygdx.totaldefense.collision.ICollisionBits;
+import com.mygdx.totaldefense.util.IConversions;
 
 /**
  * Created by dubforce on 10/4/15.
@@ -52,24 +53,28 @@ public class ProjectileSystem extends IteratingSystem {
         BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
         TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
 
-        transform.position.set(transform.position);
+        transform.position.set(targetTransform.position);
+        transform.position.z = 5;
         textureComponent.region = Assets.bullet;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(targetTransform.position.x, targetTransform.position.y);
+        bodyDef.position.set(targetTransform.position.x * IConversions.PIXELS_TO_METERS,
+                        targetTransform.position.y * IConversions.PIXELS_TO_METERS);
 
         // Create a body in the world using our definition
         Body body = engine.getSystem(RenderingSystem.class).getLevel().getWorld().createBody(bodyDef);
+        body.setUserData(projectile);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(textureComponent.region.getRegionWidth() / 2, textureComponent.region.getRegionHeight() / 2);
+        shape.setAsBox(textureComponent.region.getRegionWidth() * IConversions.PIXELS_TO_METERS / 2,
+                    textureComponent.region.getRegionHeight() * IConversions.PIXELS_TO_METERS / 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1f;
-        fixtureDef.filter.categoryBits = ICollisionBits.PROJECTILE;
-        fixtureDef.filter.maskBits = ICollisionBits.ENEMY | ICollisionBits.WALL;
+        fixtureDef.filter.categoryBits = prefab.collisionCategory;
+        fixtureDef.filter.maskBits = (short) (prefab.targetCollisionCategory | ICollisionBits.WALL);
 
         Fixture fixture = body.createFixture(fixtureDef);
 
@@ -88,5 +93,7 @@ public class ProjectileSystem extends IteratingSystem {
         projectile.add(textureComponent);
 
         prefab.timeSinceLastShot = 0f;
+
+        //Sounds.playSound(Sounds.bulletSound);
     }
 }

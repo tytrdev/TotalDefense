@@ -5,6 +5,7 @@ package com.mygdx.totaldefense.managers;
  */
 public class Settings {
     public static boolean soundEnabled = true;
+    public static float volume = 1f;
     public static String file = "td.settings";
 
     public static void load() {

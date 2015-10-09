@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.totaldefense.util.IConversions;
 
 /**
  * Created by dubforce on 10/1/15.
@@ -50,7 +51,7 @@ public class Level {
     }
 
     public void debug(OrthographicCamera camera) {
-        debugRenderer.render(world, camera.combined);
+        debugRenderer.render(world, camera.combined.scl(IConversions.METERS_TO_PIXELS));
     }
 
     public TiledMap getMap() {

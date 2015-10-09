@@ -16,15 +16,11 @@ import com.mygdx.totaldefense.world.Level;
  * Created by dubforce on 9/29/15.
  */
 public class CameraSystem extends IteratingSystem {
-    private PooledEngine engine;
-
     private ComponentMapper<TransformComponent> tm;
     private ComponentMapper<CameraComponent> cm;
 
-    public CameraSystem(PooledEngine engine) {
+    public CameraSystem() {
         super(Family.all(CameraComponent.class).get());
-
-        this.engine = engine;
 
         tm = ComponentMapper.getFor(TransformComponent.class);
         cm = ComponentMapper.getFor(CameraComponent.class);
@@ -34,7 +30,7 @@ public class CameraSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         CameraComponent camera = cm.get(entity);
 
-        RenderingSystem renderingSystem = engine.getSystem(RenderingSystem.class);
+        RenderingSystem renderingSystem = getEngine().getSystem(RenderingSystem.class);
         int mapWidth = renderingSystem.getLevel().getMapPixelWidth();
         int mapHeight = renderingSystem.getLevel().getMapPixelHeight();
 

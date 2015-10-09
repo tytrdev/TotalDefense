@@ -12,6 +12,7 @@ import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.totaldefense.components.BodyComponent;
 import com.mygdx.totaldefense.components.ControllerComponent;
+import com.mygdx.totaldefense.components.PlayerComponent;
 import com.mygdx.totaldefense.components.TransformComponent;
 
 /**
@@ -23,7 +24,7 @@ public class ControllerSystem extends IteratingSystem {
     private ComponentMapper<ControllerComponent> cm;
 
     public ControllerSystem() {
-        super(Family.all(TransformComponent.class, BodyComponent.class, ControllerComponent.class).get());
+        super(Family.all(TransformComponent.class, BodyComponent.class, PlayerComponent.class, ControllerComponent.class).get());
 
         tm = ComponentMapper.getFor(TransformComponent.class);
         bm = ComponentMapper.getFor(BodyComponent.class);

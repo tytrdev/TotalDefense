@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.totaldefense.collision.ICollisionBits;
 import com.mygdx.totaldefense.world.Level;
 
 /**
@@ -27,6 +28,7 @@ public class LevelParser {
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyDef.BodyType.StaticBody;
             object.getRectangle().getPosition(bodyDef.position); // sets body position
+            bodyDef.position.scl(IConversions.PIXELS_TO_METERS);
 
             // Create a body in the world using our definition
             Body body = world.createBody(bodyDef);
@@ -37,7 +39,8 @@ public class LevelParser {
             fixtureDef.shape = shape;
             fixtureDef.density = 1f;
             fixtureDef.filter.categoryBits = ICollisionBits.WALL;
-            fixtureDef.filter.maskBits = ICollisionBits.PLAYER | ICollisionBits.PROJECTILE;
+            fixtureDef.filter.maskBits = ICollisionBits.PLAYER | ICollisionBits.PROJECTILE |
+                    ICollisionBits.ENEMY | ICollisionBits.ENEMY_PROJECTILE;
 
             body.createFixture(fixtureDef);
 
@@ -51,7 +54,9 @@ public class LevelParser {
         Rectangle rectangle = rectangleObject.getRectangle();
         PolygonShape polygon = new PolygonShape();
 
-        Vector2 center = new Vector2(rectangle.getWidth() * 0.5f, rectangle.getHeight() * 0.5f);
+        Vector2 center = new Vector2(rectangle.getWidth() * IConversions.PIXELS_TO_METERS / 2,
+                rectangle.getHeight() * IConversions.PIXELS_TO_METERS / 2);
+
         polygon.setAsBox(center.x, center.y, center, 0.0f);
 
         return polygon;
