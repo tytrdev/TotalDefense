@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="25" height="20" tilewidth="32" tileheight="32" nextobjectid="8">
+ <tileset firstgid="1" name="castlefloors" tilewidth="32" tileheight="32">
+  <image source="tiles/castlefloors.png" width="320" height="320"/>
+ </tileset>
+ <layer name="Ground" width="25" height="20">
+  <data encoding="base64" compression="zlib">
+   eJyzY2BgsKchdgBiDyD2pCH2GrVj1I5RO0btGLVj1I5BbEcQEAfTEIcAMQDwWo6V
+  </data>
+ </layer>
+ <objectgroup name="Walls">
+  <object id="1" x="8" y="8" height="661"/>
+  <object id="2" x="4" y="630" width="1041" height="48"/>
+  <object id="3" x="777" y="640" height="45"/>
+  <object id="4" x="790" y="3" width="75" height="666"/>
+  <object id="5" x="801" y="4"/>
+  <object id="6" x="3" y="3" width="922" height="55"/>
+  <object id="7" x="324" y="372"/>
+ </objectgroup>
+</map>

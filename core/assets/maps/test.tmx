@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="20" height="15" tilewidth="32" tileheight="32" nextobjectid="7">
+ <tileset firstgid="1" source="floor-tileset.tsx"/>
+ <layer name="Ground" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwTZmBgEKYy5qASHqrmcROJR80bNW8opGdKzaMmBgCrQg0J
+  </data>
+ </layer>
+ <objectgroup name="Walls">
+  <object id="3" x="0" y="0" width="640" height="32"/>
+  <object id="4" x="0" y="448" width="640" height="32"/>
+  <object id="5" x="0" y="32" width="32" height="416"/>
+  <object id="6" x="608" y="32" width="32" height="416"/>
+ </objectgroup>
+</map>
