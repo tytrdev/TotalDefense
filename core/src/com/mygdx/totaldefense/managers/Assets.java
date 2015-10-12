@@ -28,4 +28,11 @@ public class Assets {
         bullet = new TextureRegion(new Texture("sprites/bullet.png"));
         enemy = new TextureRegion(new Texture("sprites/enemy-32.png"));
     }
+
+    public static void dispose() {
+        playButton.dispose();
+        player.getTexture().dispose();
+        enemy.getTexture().dispose();
+        bullet.getTexture().dispose();
+    }
 }

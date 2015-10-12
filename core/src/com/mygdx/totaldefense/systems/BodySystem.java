@@ -28,12 +28,7 @@ public class BodySystem extends IteratingSystem {
         TransformComponent transform = tm.get(entity);
         BodyComponent body = bm.get(entity);
 
-        if(body.body == null) {
-            getEngine().removeEntity(entity);
-        }
-        else {
-            transform.position.set(body.body.getPosition().x * IConversions.METERS_TO_PIXELS,
-                    body.body.getPosition().y * IConversions.METERS_TO_PIXELS, transform.position.z);
-        }
+        transform.position.set(body.body.getPosition().x * IConversions.METERS_TO_PIXELS,
+                body.body.getPosition().y * IConversions.METERS_TO_PIXELS, transform.position.z);
     }
 }

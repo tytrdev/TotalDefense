@@ -81,7 +81,7 @@ public class ControllerSystem extends IteratingSystem {
         if(!controller.rightAxis.equals(Vector2.Zero)) {
             transform.rotation = controller.rightAxis.angle() - 90f;
         }
-        else {
+        else if(!controller.leftAxis.equals(Vector2.Zero)) {
             transform.rotation = controller.leftAxis.angle() - 90f;
         }
 

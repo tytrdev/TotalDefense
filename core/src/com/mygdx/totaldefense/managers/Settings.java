@@ -7,6 +7,8 @@ public class Settings {
     public static boolean soundEnabled = true;
     public static float volume = 1f;
     public static String file = "td.settings";
+    public static boolean debug = true;
+    public static boolean renderLight = true;
 
     public static void load() {
 

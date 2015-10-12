@@ -1,5 +1,6 @@
 package com.mygdx.totaldefense.systems;
 
+import box2dLight.RayHandler;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.totaldefense.components.TextureComponent;
 import com.mygdx.totaldefense.components.TransformComponent;
+import com.mygdx.totaldefense.managers.Settings;
 import com.mygdx.totaldefense.world.Level;
 
 import java.util.Comparator;
@@ -29,15 +31,17 @@ public class RenderingSystem extends IteratingSystem {
 
     // map
     private Level level;
+    private RayHandler rayHandler;
 
     private ComponentMapper<TransformComponent> tm;
     private ComponentMapper<TextureComponent> texM;
 
-    public RenderingSystem(SpriteBatch batch, Level level) {
+    public RenderingSystem(SpriteBatch batch, Level level, RayHandler rayHandler) {
         super(Family.all(TransformComponent.class, TextureComponent.class).get());
 
         this.batch = batch;
         this.level = level;
+        this.rayHandler = rayHandler;
 
         tm = ComponentMapper.getFor(TransformComponent.class);
         texM = ComponentMapper.getFor(TextureComponent.class);
@@ -101,7 +105,14 @@ public class RenderingSystem extends IteratingSystem {
         batch.end();
         renderQueue.clear();
 
-        level.debug(camera);
+        if(Settings.debug) {
+            level.debug(camera);
+        }
+
+        if(Settings.renderLight) {
+            rayHandler.setCombinedMatrix(camera);
+            rayHandler.updateAndRender();
+        }
     }
 
     public OrthographicCamera getCamera() {

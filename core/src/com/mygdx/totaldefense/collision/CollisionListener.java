@@ -23,6 +23,7 @@ public class CollisionListener implements ContactListener {
     public void update(float deltaTime) {
         for(Body body : destroyables) {
             world.destroyBody(body);
+            body.setActive(false);
         }
 
         destroyables.clear();
@@ -35,12 +36,10 @@ public class CollisionListener implements ContactListener {
         Filter af = a.getFilterData();
         Filter bf = b.getFilterData();
 
-        if(af.categoryBits == ICollisionBits.ENEMY_PROJECTILE) {
-            System.out.println("Adding A to destroyables");
+        if(af.categoryBits == ICollisionBits.ENEMY_PROJECTILE || af.categoryBits == ICollisionBits.PROJECTILE) {
             destroyables.add(a.getBody());
         }
-        else if(bf.categoryBits == ICollisionBits.ENEMY_PROJECTILE) {
-            System.out.println("Adding B to destroyables");
+        else if(bf.categoryBits == ICollisionBits.ENEMY_PROJECTILE || bf.categoryBits == ICollisionBits.PROJECTILE) {
             destroyables.add(b.getBody());
         }
     }

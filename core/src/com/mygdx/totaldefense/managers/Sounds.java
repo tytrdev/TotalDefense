@@ -28,4 +28,8 @@ public class Sounds {
             sound.play(volume);
         }
     }
+
+    public static void dispose() {
+        bulletSound.dispose();
+    }
 }

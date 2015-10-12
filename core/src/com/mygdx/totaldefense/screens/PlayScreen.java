@@ -1,9 +1,13 @@
 package com.mygdx.totaldefense.screens;
 
+import box2dLight.ConeLight;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -33,6 +37,7 @@ public class PlayScreen extends ScreenAdapter {
 
     // Box2D world
     private World world;
+    private RayHandler rayHandler;
 
     // Collision listener
     private CollisionListener collisionListener;
@@ -50,20 +55,24 @@ public class PlayScreen extends ScreenAdapter {
 
         engine = new PooledEngine();
         world = new World(new Vector2(0, 0), true);
+        rayHandler = new RayHandler(world);
+        rayHandler.setShadows(false);
+        rayHandler.setAmbientLight(1);
+        rayHandler.useCustomViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         engine.addSystem(new CameraSystem());
         engine.addSystem(new BodySystem());
         engine.addSystem(new ControllerSystem());
-        engine.addSystem(new RenderingSystem(game.batch, LevelParser.from(IMapPath.test2, world)));
+        engine.addSystem(new RenderingSystem(game.batch, LevelParser.from(IMapPath.test2, world), rayHandler));
         engine.addSystem(new ProjectileSystem(engine));
         engine.addSystem(new AISystem());
-
-        collisionListener = new CollisionListener(world);
-        world.setContactListener(collisionListener);
+        engine.addSystem(new LightSystem());
 
         player = PlayerFactory.player(engine, world);
         camera = createCamera(engine, player);
-        firstEnemy = EnemyFactory.enemy(engine, world, player);
+
+        // add light to world
+        addLight(player);
     }
 
     @Override
@@ -74,7 +83,6 @@ public class PlayScreen extends ScreenAdapter {
 
     private void update(float delta) {
         world.step(delta, 6, 2);
-        collisionListener.update(delta);
         engine.update(delta);
     }
 
@@ -95,5 +103,20 @@ public class PlayScreen extends ScreenAdapter {
         engine.addEntity(entity);
 
         return entity;
+    }
+
+    private void addLight(Entity player) {
+        LightComponent lightComponent = engine.createComponent(LightComponent.class);
+        lightComponent.light = new ConeLight(
+                rayHandler, 10, new Color(1, 1, 1, 1),
+                500 * IConversions.PIXELS_TO_METERS,
+                100 * IConversions.PIXELS_TO_METERS,
+                100 * IConversions.PIXELS_TO_METERS,
+                0f, 45f
+        );
+
+        lightComponent.offset = new Vector2(-20, 0);
+
+        player.add(lightComponent);
     }
 }
