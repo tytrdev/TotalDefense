@@ -8,14 +8,11 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.totaldefense.components.TextureComponent;
 import com.mygdx.totaldefense.components.TransformComponent;
 import com.mygdx.totaldefense.managers.Settings;
+import com.mygdx.totaldefense.util.IConversions;
 import com.mygdx.totaldefense.world.Level;
 
 import java.util.Comparator;
@@ -110,7 +107,11 @@ public class RenderingSystem extends IteratingSystem {
         }
 
         if(Settings.renderLight) {
-            rayHandler.setCombinedMatrix(camera);
+            rayHandler.setCombinedMatrix(
+                    camera.combined,
+                    camera.position.x * IConversions.PPM, camera.position.y * IConversions.PPM,
+                    camera.viewportWidth * IConversions.PPM, camera.viewportHeight * IConversions.PPM
+            );
             rayHandler.updateAndRender();
         }
     }

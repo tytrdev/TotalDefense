@@ -30,15 +30,15 @@ public class EnemyFactory {
         // Initialize body component
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(400 * IConversions.PIXELS_TO_METERS / 2, 200 * IConversions.PIXELS_TO_METERS / 2);
+        bodyDef.position.set(400 * IConversions.PPM / 2, 200 * IConversions.PPM / 2);
 
         // Create a body in the world using our definition
         Body body = world.createBody(bodyDef);
         body.setUserData(enemy);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(textureComponent.region.getRegionWidth() * IConversions.PIXELS_TO_METERS / 2,
-                textureComponent.region.getRegionHeight() * IConversions.PIXELS_TO_METERS / 2);
+        shape.setAsBox(textureComponent.region.getRegionWidth() * IConversions.PPM / 2,
+                textureComponent.region.getRegionHeight() * IConversions.PPM / 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;

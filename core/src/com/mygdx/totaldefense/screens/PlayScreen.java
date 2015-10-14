@@ -1,6 +1,5 @@
 package com.mygdx.totaldefense.screens;
 
-import box2dLight.ConeLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.ashley.core.Entity;
@@ -13,15 +12,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.totaldefense.TotalDefense;
 import com.mygdx.totaldefense.collision.CollisionListener;
-import com.mygdx.totaldefense.components.*;
-import com.mygdx.totaldefense.factories.EnemyFactory;
+import com.mygdx.totaldefense.factories.CameraFactory;
 import com.mygdx.totaldefense.factories.PlayerFactory;
-import com.mygdx.totaldefense.managers.Assets;
 import com.mygdx.totaldefense.systems.*;
-import com.mygdx.totaldefense.collision.ICollisionBits;
 import com.mygdx.totaldefense.util.IConversions;
 import com.mygdx.totaldefense.util.IMapPath;
-import com.mygdx.totaldefense.util.LevelParser;
+import com.mygdx.totaldefense.factories.LevelParser;
+import com.mygdx.totaldefense.world.Level;
 
 /**
  * Created by dubforce on 9/29/15.
@@ -38,6 +35,7 @@ public class PlayScreen extends ScreenAdapter {
     // Box2D world
     private World world;
     private RayHandler rayHandler;
+    private Level level;
 
     // Collision listener
     private CollisionListener collisionListener;
@@ -56,23 +54,27 @@ public class PlayScreen extends ScreenAdapter {
         engine = new PooledEngine();
         world = new World(new Vector2(0, 0), true);
         rayHandler = new RayHandler(world);
-        rayHandler.setShadows(false);
-        rayHandler.setAmbientLight(1);
-        rayHandler.useCustomViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        level = LevelParser.from(IMapPath.test2, world);
 
         engine.addSystem(new CameraSystem());
         engine.addSystem(new BodySystem());
         engine.addSystem(new ControllerSystem());
-        engine.addSystem(new RenderingSystem(game.batch, LevelParser.from(IMapPath.test2, world), rayHandler));
+        engine.addSystem(new RenderingSystem(game.batch, level, rayHandler));
         engine.addSystem(new ProjectileSystem(engine));
         engine.addSystem(new AISystem());
         engine.addSystem(new LightSystem());
 
-        player = PlayerFactory.player(engine, world);
-        camera = createCamera(engine, player);
+        player = PlayerFactory.player(engine, world, rayHandler);
+        camera = CameraFactory.camera(engine, player);
 
         // add light to world
-        addLight(player);
+        PointLight testLight = new PointLight(rayHandler, 500);
+        testLight.setDistance(10f);
+        testLight.setColor(Color.WHITE);
+        testLight.setPosition(
+                500 * IConversions.PPM,
+                400 * IConversions.PPM
+        );
     }
 
     @Override
@@ -88,35 +90,5 @@ public class PlayScreen extends ScreenAdapter {
 
     private void drawUI() {
 
-    }
-
-    // Utility methods
-    private static Entity createCamera(PooledEngine engine, Entity target) {
-        Entity entity = engine.createEntity();
-
-        CameraComponent camera = new CameraComponent();
-        camera.camera = engine.getSystem(RenderingSystem.class).getCamera();
-        camera.target = target;
-
-        entity.add(camera);
-
-        engine.addEntity(entity);
-
-        return entity;
-    }
-
-    private void addLight(Entity player) {
-        LightComponent lightComponent = engine.createComponent(LightComponent.class);
-        lightComponent.light = new ConeLight(
-                rayHandler, 10, new Color(1, 1, 1, 1),
-                500 * IConversions.PIXELS_TO_METERS,
-                100 * IConversions.PIXELS_TO_METERS,
-                100 * IConversions.PIXELS_TO_METERS,
-                0f, 45f
-        );
-
-        lightComponent.offset = new Vector2(-20, 0);
-
-        player.add(lightComponent);
     }
 }

@@ -59,16 +59,16 @@ public class ProjectileSystem extends IteratingSystem {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(targetTransform.position.x * IConversions.PIXELS_TO_METERS,
-                        targetTransform.position.y * IConversions.PIXELS_TO_METERS);
+        bodyDef.position.set(targetTransform.position.x * IConversions.PPM,
+                        targetTransform.position.y * IConversions.PPM);
 
         // Create a body in the world using our definition
         Body body = engine.getSystem(RenderingSystem.class).getLevel().getWorld().createBody(bodyDef);
         body.setUserData(projectile);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(textureComponent.region.getRegionWidth() * IConversions.PIXELS_TO_METERS / 2,
-                    textureComponent.region.getRegionHeight() * IConversions.PIXELS_TO_METERS / 2);
+        shape.setAsBox(textureComponent.region.getRegionWidth() * IConversions.PPM / 2,
+                    textureComponent.region.getRegionHeight() * IConversions.PPM / 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;

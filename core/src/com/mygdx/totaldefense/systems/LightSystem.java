@@ -28,8 +28,8 @@ public class LightSystem extends IteratingSystem {
         LightComponent light = lm.get(entity);
 
         light.light.setPosition(
-                transform.position.x * IConversions.PIXELS_TO_METERS,
-                transform.position.y * IConversions.PIXELS_TO_METERS
+                transform.position.x * IConversions.PPM,
+                transform.position.y * IConversions.PPM
         );
 
         light.light.setDirection(transform.rotation + 90f);

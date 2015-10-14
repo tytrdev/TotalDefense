@@ -51,7 +51,7 @@ public class Level {
     }
 
     public void debug(OrthographicCamera camera) {
-        debugRenderer.render(world, camera.combined.scl(IConversions.METERS_TO_PIXELS));
+        debugRenderer.render(world, camera.combined.scl(IConversions.MPP));
     }
 
     public TiledMap getMap() {

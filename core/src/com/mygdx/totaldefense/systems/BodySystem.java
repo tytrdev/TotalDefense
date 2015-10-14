@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.totaldefense.components.BodyComponent;
 import com.mygdx.totaldefense.components.TransformComponent;
 import com.mygdx.totaldefense.util.IConversions;
@@ -28,7 +27,7 @@ public class BodySystem extends IteratingSystem {
         TransformComponent transform = tm.get(entity);
         BodyComponent body = bm.get(entity);
 
-        transform.position.set(body.body.getPosition().x * IConversions.METERS_TO_PIXELS,
-                body.body.getPosition().y * IConversions.METERS_TO_PIXELS, transform.position.z);
+        transform.position.set(body.body.getPosition().x * IConversions.MPP,
+                body.body.getPosition().y * IConversions.MPP, transform.position.z);
     }
 }
