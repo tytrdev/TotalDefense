@@ -12,4 +12,5 @@
   <object id="5" x="0" y="32" width="32" height="416"/>
   <object id="6" x="608" y="32" width="32" height="416"/>
  </objectgroup>
+ <objectgroup name="Triggers"/>
 </map>

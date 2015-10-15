@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.mygdx.totaldefense.components.LightComponent;
 import com.mygdx.totaldefense.components.TransformComponent;
 import com.mygdx.totaldefense.util.IConversions;
@@ -33,5 +35,10 @@ public class LightSystem extends IteratingSystem {
         );
 
         light.light.setDirection(transform.rotation + 90f);
+
+        // toggle flashlight
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            light.light.setActive(!light.light.isActive());
+        }
     }
 }

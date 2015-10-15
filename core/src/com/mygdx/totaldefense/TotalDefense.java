@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.totaldefense.managers.Assets;
 import com.mygdx.totaldefense.managers.Settings;
 import com.mygdx.totaldefense.managers.Sounds;
+import com.mygdx.totaldefense.managers.Triggers;
 import com.mygdx.totaldefense.screens.MainMenu;
 
 public class TotalDefense extends Game {
@@ -20,6 +21,7 @@ public class TotalDefense extends Game {
 		Settings.load();
 		Assets.load();
 		Sounds.load();
+		Triggers.load();
 
 		// set the screen
 		setScreen(new MainMenu(this));

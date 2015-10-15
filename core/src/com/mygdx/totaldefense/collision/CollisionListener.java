@@ -1,8 +1,7 @@
 package com.mygdx.totaldefense.collision;
 
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mygdx.totaldefense.managers.Triggers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +35,17 @@ public class CollisionListener implements ContactListener {
         Filter af = a.getFilterData();
         Filter bf = b.getFilterData();
 
-        if(af.categoryBits == ICollisionBits.ENEMY_PROJECTILE || af.categoryBits == ICollisionBits.PROJECTILE) {
-            destroyables.add(a.getBody());
+        if(af.categoryBits == ICollisionBits.AUDIO_TRIGGER) {
+            Triggers.activate(a.getBody());
         }
-        else if(bf.categoryBits == ICollisionBits.ENEMY_PROJECTILE || bf.categoryBits == ICollisionBits.PROJECTILE) {
-            destroyables.add(b.getBody());
+        else if(af.categoryBits == ICollisionBits.DOOR_TRIGGER) {
+            Triggers.activateWhenPossible(a.getBody());
+        }
+        else if(bf.categoryBits == ICollisionBits.AUDIO_TRIGGER) {
+            Triggers.activate(b.getBody());
+        }
+        else if(bf.categoryBits == ICollisionBits.DOOR_TRIGGER) {
+            Triggers.activateWhenPossible(b.getBody());
         }
     }
 

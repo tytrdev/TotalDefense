@@ -9,4 +9,6 @@ public interface ICollisionBits {
     short PROJECTILE = WALL << 1;
     short ENEMY = PROJECTILE << 1;
     short ENEMY_PROJECTILE = ENEMY << 1;
+    short AUDIO_TRIGGER = ENEMY_PROJECTILE << 1;
+    short DOOR_TRIGGER = AUDIO_TRIGGER << 1;
 }

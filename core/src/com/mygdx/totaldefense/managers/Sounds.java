@@ -10,11 +10,13 @@ import com.mygdx.totaldefense.managers.Settings;
  */
 public class Sounds {
     public static Sound bulletSound;
+    public static Sound test;
     public static Music mainTheme;
 
     public static void load() {
         // sound asset loading
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+        test = Gdx.audio.newSound(Gdx.files.internal("sounds/test.wav"));
     }
 
     public static void playSound(Sound sound) {

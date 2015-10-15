@@ -34,6 +34,8 @@ public class LightFactory {
                 0f, 30f
         );
 
+        lightComponent.light.setColor(0.4f, 0.4f, 0.4f, 1f);
+
         return lightComponent;
     }
 }

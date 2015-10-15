@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="25" height="20" tilewidth="32" tileheight="32" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="25" height="20" tilewidth="32" tileheight="32" nextobjectid="20">
  <tileset firstgid="1" name="castlefloors" tilewidth="32" tileheight="32">
   <image source="tiles/castlefloors.png" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="101" name="cementstair" tilewidth="32" tileheight="32">
+  <image source="tiles/cementstair.png" width="160" height="128"/>
  </tileset>
  <layer name="Ground" width="25" height="20">
   <data encoding="base64" compression="zlib">
    eJyzY2BgsKchdgBiDyD2pCH2GrVj1I5RO0btGLVj1I5BbEcQEAfTEIcAMQDwWo6V
   </data>
  </layer>
- <objectgroup name="Walls">
-  <object id="1" x="8" y="8" height="661"/>
-  <object id="2" x="4" y="630" width="1041" height="48"/>
-  <object id="3" x="777" y="640" height="45"/>
-  <object id="4" x="790" y="3" width="75" height="666"/>
-  <object id="5" x="801" y="4"/>
-  <object id="6" x="3" y="3" width="922" height="55"/>
-  <object id="7" x="324" y="372"/>
+ <objectgroup name="Walls" visible="0">
+  <object id="8" x="-275.229" y="-130.216" width="284.108" height="902.634"/>
+  <object id="9" x="-242.675" y="-221.959" width="1121.63" height="230.838"/>
+  <object id="13" x="787.215" y="-85.8242" width="393.608" height="816.81"/>
+  <object id="15" x="-65.108" y="621.486" width="941.107" height="207.162"/>
+  <object id="16" x="464.635" y="1006.21"/>
+ </objectgroup>
+ <objectgroup name="Triggers">
+  <object id="17" x="306.783" y="218.992" width="25" height="25">
+   <properties>
+    <property name="audioFile" value="test.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="19" x="593.696" y="422.064" width="147.884" height="141.408">
+   <properties>
+    <property name="level" value="test.tmx"/>
+    <property name="type" value="DOOR"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
