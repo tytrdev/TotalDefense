@@ -33,5 +33,6 @@ public class Sounds {
 
     public static void dispose() {
         bulletSound.dispose();
+        test.dispose();
     }
 }

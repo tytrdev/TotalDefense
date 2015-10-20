@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="44">
+ <tileset firstgid="1" name="castlefloors" tilewidth="32" tileheight="32">
+  <image source="tiles/castlefloors.png" width="320" height="320"/>
+ </tileset>
+ <layer name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2DEOgkAQBVDuRGGnlGqpdhbe/xZiZ0hkMCzLQN5Lfuss+2UVmgYAgC079jnNSFd9xft27nOZkWv9JVcVfV+7wvP0MS7an9LXr49x+sgl2p9nM+/3d5hXMC/KcD1d8R1ZV9RH2+deMIdgXpR28Fl7u1+2fF6dF1jf2vSRy60ZP18ehefV6mPqc2dX6sI2qlYfU+fs7f76lz5yic7HKN/npz5y0Ucu+shFH7noI5fPnv96vzb1PZk+ypn7X22J510AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCzevTiJzg==
+  </data>
+ </layer>
+ <objectgroup name="Triggers">
+  <object id="1" x="64.3238" y="574.779" width="81" height="118">
+   <properties>
+    <property name="audioFile" value="intro.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="CUTSCENE"/>
+   </properties>
+  </object>
+  <object id="2" x="249" y="361" width="46" height="45">
+   <properties>
+    <property name="audioFile" value="out.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="5" x="589" y="359.107" width="25" height="45">
+   <properties>
+    <property name="audioFile" value="bang.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="6" x="594" y="359" width="27" height="44">
+   <properties>
+    <property name="audioFile" value="what.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="9" x="872.112" y="359.107" width="25" height="45">
+   <properties>
+    <property name="audioFile" value="bang.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="10" x="881.043" y="360" width="25" height="45">
+   <properties>
+    <property name="audioFile" value="gasp.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="12" x="1084.22" y="202.733" width="56.2651" height="392.962">
+   <properties>
+    <property name="audioFile" value="okay.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="13" x="1285.17" y="204.519" width="71.4477" height="392.069">
+   <properties>
+    <property name="audioFile" value="gun.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="14" x="1436.1" y="362.597" width="26.7929" height="41.0824">
+   <properties>
+    <property name="audioFile" value="breathing.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="15" x="1510.23" y="361.704" width="27.686" height="40.1893">
+   <properties>
+    <property name="audioFile" value="exit.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="16" x="1514.69" y="674.288" width="41.9755" height="31.2584">
+   <properties>
+    <property name="audioFile" value="light.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+  <object id="17" x="1711.17" y="746.629" width="33.0446" height="41.9755">
+   <properties>
+    <property name="audioFile" value="please.wav"/>
+    <property name="level" value="ONCE"/>
+    <property name="type" value="AUDIO"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Walls">
+  <object id="20" x="1.59109" y="259.348" width="5.56881" height="249.801"/>
+  <object id="21" x="11.1376" y="255.37" width="276.054" height="7.95545"/>
+  <object id="22" x="279.236" y="265.712" width="8.75099" height="89.8966"/>
+  <object id="23" x="10.3421" y="503.58" width="274.463" height="5.56881"/>
+  <object id="24" x="280.032" y="410.501" width="7.1599" height="93.0788"/>
+  <object id="25" x="294.352" y="354.018" width="439.936" height="4.77327"/>
+  <object id="26" x="290.374" y="408.115" width="443.119" height="6.36436"/>
+  <object id="27" x="738.266" y="353.222" width="163.882" height="5.56881"/>
+  <object id="28" x="736.675" y="408.115" width="164.678" height="7.95545"/>
+  <object id="29" x="893.397" y="420.843" width="9.54654" height="184.566"/>
+  <object id="30" x="908.512" y="599.841" width="485.282" height="8.75099"/>
+  <object id="32" x="892.601" y="186.953" width="11.1376" height="167.86"/>
+  <object id="33" x="900.557" y="178.202" width="495.625" height="20.6842"/>
+  <object id="34" x="1400.16" y="180.589" width="41.3683" height="18.2975"/>
+  <object id="36" x="1430.39" y="160.7" width="136.834" height="198.091"/>
+  <object id="37" x="1431.98" y="405.728" width="80.35" height="392.999"/>
+  <object id="38" x="1348.45" y="600.636" width="81.9411" height="13.5243"/>
+  <object id="39" x="1559.27" y="348.449" width="176.611" height="393.795"/>
+  <object id="40" x="1716.79" y="357.995" width="369.928" height="128.878"/>
+  <object id="42" x="2071.6" y="379.475" width="147.971" height="418.457"/>
+  <object id="43" x="1504.38" y="790.772" width="578.361" height="82.7367"/>
+ </objectgroup>
+ <objectgroup name="Spawns" visible="0">
+  <object id="18" x="29.4722" y="361.704" width="27.686" height="32.1515">
+   <properties>
+    <property name="type" value="PLAYER"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

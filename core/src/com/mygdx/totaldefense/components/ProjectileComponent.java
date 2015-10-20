@@ -14,4 +14,5 @@ public class ProjectileComponent implements Component {
     public float timeSinceLastShot = 0f;
     public short collisionCategory = ICollisionBits.ENEMY_PROJECTILE;
     public short targetCollisionCategory = ICollisionBits.PLAYER;
+    public float length = 50; // 50 meter shot radius
 }

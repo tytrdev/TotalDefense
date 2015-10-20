@@ -23,7 +23,7 @@ public class Assets {
     public static TiledMap map;
 
     public static void load() {
-        playButton = new Texture("UI/menus/play.png");
+        playButton = new Texture("UI/play.png");
         player = new TextureRegion(new Texture("sprites/player-32.png"));
         bullet = new TextureRegion(new Texture("sprites/bullet.png"));
         enemy = new TextureRegion(new Texture("sprites/enemy-32.png"));

@@ -6,14 +6,18 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.totaldefense.TotalDefense;
 import com.mygdx.totaldefense.collision.CollisionListener;
+import com.mygdx.totaldefense.controllers.Gamepad;
 import com.mygdx.totaldefense.factories.CameraFactory;
+import com.mygdx.totaldefense.factories.EnemyFactory;
 import com.mygdx.totaldefense.factories.PlayerFactory;
 import com.mygdx.totaldefense.managers.Sounds;
 import com.mygdx.totaldefense.managers.Triggers;
@@ -27,6 +31,10 @@ import com.mygdx.totaldefense.world.Level;
  * Created by dubforce on 9/29/15.
  */
 public class PlayScreen extends ScreenAdapter {
+    public enum State {
+        PLAYING, CUSTSCNE, PAUSED
+    }
+
     private TotalDefense game;
 
     // Cameras
@@ -40,16 +48,13 @@ public class PlayScreen extends ScreenAdapter {
     private RayHandler rayHandler;
     private Level level;
 
-    // Collision listener
-    private CollisionListener collisionListener;
-
-    // Entities
-    private Entity player;
-    private Entity camera;
-    private Entity firstEnemy;
+    // State
+    private State state;
 
     public PlayScreen(TotalDefense game) {
         this.game = game;
+
+        state = State.PLAYING;
 
         guiCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         guiCam.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
@@ -60,35 +65,43 @@ public class PlayScreen extends ScreenAdapter {
         world.setContactListener(new CollisionListener(world));
         Triggers.setWorld(world);
 
+        // global light settings
         rayHandler = new RayHandler(world);
-
-        level = LevelFactory.from(this, IMapPath.test2, world);
+        rayHandler.setAmbientLight(0.05f);
 
         engine.addSystem(new CameraSystem());
         engine.addSystem(new BodySystem());
         engine.addSystem(new ControllerSystem());
-        engine.addSystem(new RenderingSystem(game.batch, level, rayHandler));
-        engine.addSystem(new ProjectileSystem(engine));
+        engine.addSystem(new RenderingSystem(game.batch, rayHandler));
+        engine.addSystem(new ProjectileSystem(engine, world));
         engine.addSystem(new AISystem());
         engine.addSystem(new LightSystem());
+        engine.addSystem(new HealthSystem(engine, world));
 
-        player = PlayerFactory.player(engine, world, rayHandler);
-        camera = CameraFactory.camera(engine, player);
+        level = LevelFactory.from(this, IMapPath.demo, engine, world, rayHandler);
+        engine.getSystem(RenderingSystem.class).setLevel(level);
 
-        // add light to world
-        PointLight testLight = new PointLight(rayHandler, 500);
-        testLight.setDistance(10f);
-        testLight.setColor(Color.WHITE);
-        testLight.setPosition(
-                500 * IConversions.PPM,
-                400 * IConversions.PPM
-        );
+        Controllers.addListener(new Gamepad());
     }
 
     @Override
     public void render(float delta) {
-        update(delta);
-        drawUI();
+        switch(state) {
+            case PAUSED:
+                // no update
+                break;
+            case PLAYING:
+                update(delta);
+                break;
+            case CUSTSCNE:
+                // no update
+                break;
+            default:
+                break;
+        }
+
+        // draw the GUI. May become unnecessary
+        //drawUI();
     }
 
     private void update(float delta) {
@@ -100,7 +113,6 @@ public class PlayScreen extends ScreenAdapter {
     private void drawUI() {
 
     }
-
 
     public void setLevel(String levelName) {
         // Dispose of all triggers
@@ -121,14 +133,14 @@ public class PlayScreen extends ScreenAdapter {
         rayHandler.removeAll();
 
         // generate new level
-        level = LevelFactory.from(this, "maps/" + levelName, world);
+        level = LevelFactory.from(this, "maps/" + levelName, engine, world, rayHandler);
 
         // set level in rendering system
         engine.getSystem(RenderingSystem.class).setLevel(level);
+    }
 
-        // create player and camera
-        player = PlayerFactory.player(engine, world, rayHandler);
-        camera = CameraFactory.camera(engine, player);
+    public void setState(State state) {
+        this.state = state;
     }
 
     @Override

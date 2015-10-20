@@ -14,16 +14,14 @@ import com.mygdx.totaldefense.util.IConversions;
  * Created by dubforce on 10/9/15.
  */
 public class BodyFactory {
-    public static BodyComponent player(PooledEngine engine, World world, TextureComponent tc) {
+    public static BodyComponent player(PooledEngine engine, World world, TextureComponent tc, RectangleMapObject spawn) {
         BodyComponent bodyComponent = engine.createComponent(BodyComponent.class);
 
         // Initialize body component
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(
-                Gdx.graphics.getWidth() / 2 * IConversions.PPM,
-                Gdx.graphics.getHeight() / 2 * IConversions.PPM
-        );
+        spawn.getRectangle().getCenter(bodyDef.position);
+        bodyDef.position.scl(IConversions.PPM);
 
         // Create a body in the world using our definition
         Body body = world.createBody(bodyDef);
@@ -70,8 +68,7 @@ public class BodyFactory {
         fixtureDef.shape = shape;
         fixtureDef.density = 1f;
         fixtureDef.filter.categoryBits = ICollisionBits.WALL;
-        fixtureDef.filter.maskBits = ICollisionBits.PLAYER | ICollisionBits.PROJECTILE |
-                ICollisionBits.ENEMY | ICollisionBits.ENEMY_PROJECTILE;
+        fixtureDef.filter.maskBits = IMaskBits.WALL;
 
         body.createFixture(fixtureDef);
 

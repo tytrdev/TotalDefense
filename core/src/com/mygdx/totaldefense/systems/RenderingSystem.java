@@ -33,11 +33,10 @@ public class RenderingSystem extends IteratingSystem {
     private ComponentMapper<TransformComponent> tm;
     private ComponentMapper<TextureComponent> texM;
 
-    public RenderingSystem(SpriteBatch batch, Level level, RayHandler rayHandler) {
+    public RenderingSystem(SpriteBatch batch, RayHandler rayHandler) {
         super(Family.all(TransformComponent.class, TextureComponent.class).get());
 
         this.batch = batch;
-        this.level = level;
         this.rayHandler = rayHandler;
 
         tm = ComponentMapper.getFor(TransformComponent.class);
@@ -46,7 +45,6 @@ public class RenderingSystem extends IteratingSystem {
         renderQueue = new Array<>();
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0f);
 
         comparator = new Comparator<Entity>() {
             @Override
@@ -102,6 +100,9 @@ public class RenderingSystem extends IteratingSystem {
         batch.end();
         renderQueue.clear();
 
+        // scale for physics/light
+        camera.combined.scl(IConversions.MPP);
+
         if(Settings.debug) {
             level.debug(camera);
         }
@@ -112,6 +113,7 @@ public class RenderingSystem extends IteratingSystem {
                     camera.position.x * IConversions.PPM, camera.position.y * IConversions.PPM,
                     camera.viewportWidth * IConversions.PPM, camera.viewportHeight * IConversions.PPM
             );
+
             rayHandler.updateAndRender();
         }
     }

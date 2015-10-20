@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.mygdx.totaldefense.screens.PlayScreen;
 import com.mygdx.totaldefense.triggers.AudioTrigger;
+import com.mygdx.totaldefense.triggers.CutsceneTrigger;
 import com.mygdx.totaldefense.triggers.DoorTrigger;
 import com.mygdx.totaldefense.triggers.OccurenceLevel;
 
@@ -23,6 +24,14 @@ public class TriggerFactory {
         return new DoorTrigger(
                 screen,
                 level
+        );
+    }
+
+    public static CutsceneTrigger cutscene(PlayScreen screen, Body triggerBody, String audioFile) {
+        return new CutsceneTrigger(
+                screen,
+                triggerBody,
+                audioFile
         );
     }
 }

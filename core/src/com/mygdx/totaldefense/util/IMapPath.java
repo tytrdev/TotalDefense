@@ -6,4 +6,5 @@ package com.mygdx.totaldefense.util;
 public interface IMapPath {
     String test = "maps/test.tmx";
     String test2 = "maps/test2.tmx";
+    String demo = "maps/demo.tmx";
 }

@@ -51,6 +51,7 @@ public class MainMenu extends ScreenAdapter {
 
             if(playBounds.contains(mousePosition.x, mousePosition.y)) {
                 game.setScreen(new PlayScreen(game));
+                this.dispose();
             }
         }
     }

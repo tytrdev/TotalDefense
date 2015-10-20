@@ -55,7 +55,7 @@ public class EnemyFactory {
         bodyComponent.shape = shape;
         bodyComponent.fixtureDef = fixtureDef;
         bodyComponent.fixture = fixture;
-        bodyComponent.moveSpeed.set(10, 10);
+        bodyComponent.moveSpeed.set(4, 4);
 
         projectile.damage = 10;
         projectile.speed.set(1000, 1000);

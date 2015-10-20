@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.totaldefense.components.AIComponent;
 import com.mygdx.totaldefense.components.BodyComponent;
@@ -37,8 +38,21 @@ public class AISystem extends IteratingSystem {
 
         TransformComponent targetTransform = tm.get(ai.target);
 
-        Vector3 position = targetTransform.position.cpy().sub(transform.position).nor();
-        body.body.setLinearVelocity(position.x, position.y);
-        controller.rightAxis.set(position.x, position.y);
+        Vector3 direction = targetTransform.position.cpy().sub(transform.position);
+
+        // fix jittery movement
+        if(direction.x > -50 && direction.x < 50) {
+            direction.x = 0;
+        }
+        if(direction.y > -50 && direction.y < 50) {
+            direction.y = 0;
+        }
+
+        body.body.setLinearVelocity(
+                body.moveSpeed.x * Math.signum(direction.x),
+                body.moveSpeed.y * Math.signum(direction.y)
+        );
+
+        controller.rightAxis.set(Math.signum(direction.x), Math.signum(direction.y));
     }
 }

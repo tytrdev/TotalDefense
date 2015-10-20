@@ -35,4 +35,11 @@ public class TotalDefense extends Game {
 		// calls current screens render method
 		super.render();
 	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+
+		this.getScreen().dispose();
+	}
 }

@@ -11,5 +11,5 @@
 	<inherits name='TotalDefense' />
 	<entry-point class='com.mygdx.totaldefense.client.HtmlLauncher' />
 	
-	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
+	<set-configuration-property name="gdx.assetpath" value="../../../core/assets" />
 </module>

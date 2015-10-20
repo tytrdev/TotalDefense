@@ -11,4 +11,6 @@ public interface ICollisionBits {
     short ENEMY_PROJECTILE = ENEMY << 1;
     short AUDIO_TRIGGER = ENEMY_PROJECTILE << 1;
     short DOOR_TRIGGER = AUDIO_TRIGGER << 1;
+    short LIGHT = DOOR_TRIGGER << 1;
+    short STATIC_OBJECT = LIGHT << 1;
 }
